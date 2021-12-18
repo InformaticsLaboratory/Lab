@@ -8,7 +8,12 @@ for i in key_word:
     if 97 <= ascii_code <= 122:
         coded_letters.append(ascii_code - 96)
     elif ord('а') <= ascii_code <= ord('я'):
-        coded_letters.append(ascii_code - ord('а') + 1)
+        if ascii_code > ord('е'):
+            coded_letters.append(ascii_code - ord('а') + 2)
+        else:
+            coded_letters.append(ascii_code - ord('а') + 1)
+    elif ascii_code == ord('ё'):
+        coded_letters.append(7)
     else:
         print("You can input only russian or english letters!")
         exit(0)
