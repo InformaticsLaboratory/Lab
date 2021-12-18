@@ -1,12 +1,17 @@
-from decimal import *
-
 print("Enter the keyword: ", end='')
 key_word = input()
 coded_letters = list()
 
 # Part 1
 for i in key_word:
-    coded_letters.append(ord(i))
+    ascii_code = ord(i.lower())
+    if 97 <= ascii_code <= 122:
+        coded_letters.append(ascii_code - 96)
+    elif ord('а') <= ascii_code <= ord('я'):
+        coded_letters.append(ascii_code - ord('а') + 1)
+    else:
+        print("You can input only russian or english letters!")
+        exit(0)
 
 # Part 2
 list_size = len(coded_letters)
