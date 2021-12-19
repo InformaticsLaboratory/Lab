@@ -24,6 +24,5 @@ def move_right_part(code_word):
     left_part = convert_to_binary(code_word[:code_word.find(',')]) + (code_word[code_word.find(','):])
 
     return right_part + '-' + left_part
-print(move_right_part("0,+0"))
 
 
