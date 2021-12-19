@@ -1,0 +1,27 @@
+def convert(number):
+    number = int(number)
+    binary = ""
+    while number // 2 != 0:
+        binary += str(number % 2)
+        number //= 2
+    binary += str(number % 2)
+    if binary[0] == '0':
+        binary = binary[1:]
+    return binary[::-1]
+
+
+def move_right_part(code_word):
+    code_word = str(code_word)
+    right_part = ""
+    while code_word[-1] != "+":
+        right_part += code_word[-1]
+        code_word = code_word[:-1]
+    right_part = right_part[::-1]
+    right_part = convert(right_part)
+
+    left_part = convert(code_word[:code_word.find(',')])
+
+    return right_part + '-' + left_part
+
+
+
