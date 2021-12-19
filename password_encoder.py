@@ -193,3 +193,13 @@ user_keyword = input()
 coded_letters = letters_to_alphabet_num(user_keyword)
 coded_letters = mul_to_incremented_next(coded_letters)
 encoded_number = to_float(coded_letters)
+encoded_number = convert_edges(''.join(encoded_number))
+
+whole_part = encoded_number.split(',')[0]
+middle_part = encoded_number.split(',')[1].split('+')[0]
+end_part = encoded_number.split(',')[1].split('+')[1]
+encoded_number = whole_part + "," + dec_to_three(int(middle_part)) + "+" + end_part
+
+encoded_number = move_right_part(encoded_number)
+encoded_number = encoded_number.replace(',', 'C').replace('-', '#').replace('+', '1')
+print("The result code: " + encoded_number)
