@@ -1,9 +1,7 @@
 def convert_to_binary(number):
     number = int(number)
-    print(number)
     binary = ""
     while number // 2 != 0:
-        print(number)
         binary += str(number % 2)
         number //= 2
     binary += str(number % 2)
