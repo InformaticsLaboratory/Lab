@@ -1,39 +1,26 @@
-def convert_num(string):
-    am = 0
-    avr = 0
-    spl = []
+def convert_edges(string):
+    average = 0
+    spl_str = []
     new_x = ''
     new_y = ''
 
     if not(',' in string):
         string += ',0'
 
-    spl = string.split(',')
-    avr_str = spl[1][0:-1]
-    len_str = len(avr_str)
+    spl_str = string.split(',')
 
-    if len_str > 0:
-        for i in range(len_str):
-            if avr_str[i] != ',':
-                am += int(avr_str[i])
-            else:
-                len_str -=1
-        avr = int(am//len_str)
-        if avr < 2:
-            avr = 2
-    else:
-        avr = 2
+    average = calculate_average(spl_str)
 
-    x = int(spl[0])
-    y = int(spl[1][-1:-2:-1])
+    x = int(spl_str[0])
+    y = int(spl_str[1][-1:-2:-1])
 
     while x != 0:
-        new_x += str(x%avr)
-        x //= avr
+        new_x += str(x % average)
+        x //= average
 
     while y != 0:
-        new_y += str(y%avr)
-        y //= avr
+        new_y += str(y % average)
+        y //= average
 
     if len(new_x) == 0:
         new_x = '0'
@@ -42,7 +29,27 @@ def convert_num(string):
 
     new_x = new_x[::-1]
     new_y = new_y[::-1]
-    new_string = new_x + ',' + spl[1]
+    new_string = new_x + ',' + spl_str[1]
     new_string = new_string[0:-1] + '+' + new_y
 
     return new_string
+
+
+def calculate_average(spl_str):
+    amount = 0
+    average_str = spl_str[1][0:-1]
+    len_str = len(average_str)
+
+    if len_str > 0:
+        for i in range(len_str):
+            if average_str[i] != ',':
+                amount += int(average_str[i])
+            else:
+                len_str -= 1
+        average = int(amount // len_str)
+        if average < 2:
+            return 2
+    else:
+        return 2
+
+    return average
