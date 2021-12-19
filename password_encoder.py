@@ -1,47 +1,59 @@
-print("Enter the keyword: ", end='')
-key_word = input()
-coded_letters = list()
-
-# Part 1
-for i in key_word:
-    ascii_code = ord(i.lower())
-    if 97 <= ascii_code <= 122:
-        coded_letters.append(ascii_code - 96)
-    elif ord('а') <= ascii_code <= ord('я'):
-        if ascii_code > ord('е'):
-            coded_letters.append(ascii_code - ord('а') + 2)
+def letters_to_alphabet_num(keyword):
+    code = list()
+    for symbol in keyword:
+        ascii_code = ord(symbol.lower())
+        if 97 <= ascii_code <= 122:
+            code.append(ascii_code - 96)
+        elif ord('а') <= ascii_code <= ord('я'):
+            if ascii_code > ord('е'):
+                code.append(ascii_code - ord('а') + 2)
+            else:
+                code.append(ascii_code - ord('а') + 1)
+        elif ascii_code == ord('ё'):
+            code.append(7)
         else:
-            coded_letters.append(ascii_code - ord('а') + 1)
-    elif ascii_code == ord('ё'):
-        coded_letters.append(7)
-    else:
-        print("You can input only russian or english letters!")
-        exit(0)
+            print("You can input only russian or english letters!")
+            exit(0)
 
-# Part 2
-list_size = len(coded_letters)
-coded_letters.append(coded_letters[0])
-for i in range(0, list_size):
-    coded_letters[i] = coded_letters[i] * (coded_letters[i+1] + 1)
+    return code
 
-coded_letters = coded_letters[0:list_size]
 
-# Part 3
-encoded_number = 0
-for i in range(0, list_size):
-    coded_letters[i] = str(coded_letters[i]) + "0" * (list_size - i - 1)
-    encoded_number += int(coded_letters[i])
+def mul_to_incremented_next(code):
+    list_size = len(code)
+    coded_letters.append(coded_letters[0])
+    for index in range(0, list_size):
+        coded_letters[index] = coded_letters[index] * (coded_letters[index + 1] + 1)
 
-encoded_number = list(str(encoded_number))
-encoded_number_size = len(encoded_number)
-if not list_size <= 0:
-    if encoded_number_size > list_size:
-        encoded_number.insert(encoded_number_size - list_size, ",")
-    elif encoded_number_size < list_size:
-        for i in range(0, list_size - encoded_number_size):
-            encoded_number.insert(0, "0")
-        encoded_number.insert(0, ",")
-        encoded_number.insert(0, "0")
-    else:
-        encoded_number.insert(0, ",")
-        encoded_number.insert(0, "0")
+    return coded_letters[0:list_size]
+
+
+def to_float(code):
+    list_size = len(code)
+    float_number = 0
+    for index in range(0, list_size):
+        code[index] = str(code[index]) + "0" * (list_size - index - 1)
+        float_number += int(code[index])
+
+    float_number = list(str(float_number))
+    encoded_number_size = len(float_number)
+    if not list_size <= 0:
+        if encoded_number_size > list_size:
+            float_number.insert(encoded_number_size - list_size, ",")
+        elif encoded_number_size < list_size:
+            for i in range(0, list_size - encoded_number_size):
+                float_number.insert(0, "0")
+            float_number.insert(0, ",")
+            float_number.insert(0, "0")
+        else:
+            float_number.insert(0, ",")
+            float_number.insert(0, "0")
+
+    return float_number
+
+
+print("Enter the keyword: ", end='')
+user_keyword = input()
+
+coded_letters = letters_to_alphabet_num(user_keyword)
+coded_letters = mul_to_incremented_next(coded_letters)
+encoded_number = to_float(coded_letters)
